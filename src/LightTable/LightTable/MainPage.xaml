@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:LightTable.ModelView"
+             x:Class="LightTable.MainPage"
+             x:DataType="vm:MainViewModel"
+             BackgroundColor="{Binding Background}">
+    <Grid RowDefinitions="*,Auto" ColumnDefinitions="*,*">
+        <VerticalStackLayout Background="Black" Grid.Row="1" Padding="12">
+            <Label Text="Screen brightness" />
+            <Label Text="{Binding Brightness}" />
+            <Slider Minimum="0" Maximum="1" Value="{Binding Brightness}" />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Background="Black" Grid.Row="1" Grid.Column="1" Padding="12">
+            <Label Text="White balance" />
+            <Label Text="{Binding Kelvin}" />
+            <Slider Minimum="0" Maximum="100" Value="{Binding Wb}" />
+        </VerticalStackLayout>
+    </Grid>
+
+</ContentPage>

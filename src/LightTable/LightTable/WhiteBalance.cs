@@ -1,0 +1,136 @@
+﻿
+namespace LightTable;
+internal static class WhiteBalance
+{
+    private static readonly KeyValuePair<int, Color>[] _colorArray;
+
+    static WhiteBalance()
+    {
+        var colors = new Dictionary<int, Color>
+        {
+            { 1000, new Color(255, 56, 0) },
+            { 1100, new Color(255, 71, 0) },
+            { 1200, new Color(255, 83, 0) },
+            { 1300, new Color(255, 93, 0) },
+            { 1400, new Color(255, 101, 0) },
+            { 1500, new Color(255, 109, 0) },
+            { 1600, new Color(255, 115, 0) },
+            { 1700, new Color(255, 121, 0) },
+            { 1800, new Color(255, 126, 0) },
+            { 1900, new Color(255, 131, 0) },
+            { 2000, new Color(255, 138, 18) },
+            { 2100, new Color(255, 142, 33) },
+            { 2200, new Color(255, 147, 44) },
+            { 2300, new Color(255, 152, 54) },
+            { 2400, new Color(255, 157, 63) },
+            { 2500, new Color(255, 161, 72) },
+            { 2600, new Color(255, 165, 79) },
+            { 2700, new Color(255, 169, 87) },
+            { 2800, new Color(255, 173, 94) },
+            { 2900, new Color(255, 177, 101) },
+            { 3000, new Color(255, 180, 107) },
+            { 3100, new Color(255, 184, 114) },
+            { 3200, new Color(255, 187, 120) },
+            { 3300, new Color(255, 190, 126) },
+            { 3400, new Color(255, 193, 132) },
+            { 3500, new Color(255, 196, 137) },
+            { 3600, new Color(255, 199, 143) },
+            { 3700, new Color(255, 201, 148) },
+            { 3800, new Color(255, 204, 153) },
+            { 3900, new Color(255, 206, 159) },
+            { 4000, new Color(255, 209, 163) },
+            { 4100, new Color(255, 211, 168) },
+            { 4200, new Color(255, 213, 173) },
+            { 4300, new Color(255, 215, 177) },
+            { 4400, new Color(255, 217, 182) },
+            { 4500, new Color(255, 219, 186) },
+            { 4600, new Color(255, 221, 190) },
+            { 4700, new Color(255, 223, 194) },
+            { 4800, new Color(255, 225, 198) },
+            { 4900, new Color(255, 227, 202) },
+            { 5000, new Color(255, 228, 206) },
+            { 5100, new Color(255, 230, 210) },
+            { 5200, new Color(255, 232, 213) },
+            { 5300, new Color(255, 233, 217) },
+            { 5400, new Color(255, 235, 220) },
+            { 5500, new Color(255, 236, 224) },
+            { 5600, new Color(255, 238, 227) },
+            { 5700, new Color(255, 239, 230) },
+            { 5800, new Color(255, 240, 233) },
+            { 5900, new Color(255, 242, 236) },
+            { 6000, new Color(255, 243, 239) },
+            { 6100, new Color(255, 244, 242) },
+            { 6200, new Color(255, 245, 245) },
+            { 6300, new Color(255, 246, 247) },
+            { 6400, new Color(255, 248, 251) },
+            { 6500, new Color(255, 249, 253) },
+            { 6600, new Color(254, 249, 255) },
+            { 6700, new Color(252, 247, 255) },
+            { 6800, new Color(249, 246, 255) },
+            { 6900, new Color(247, 245, 255) },
+            { 7000, new Color(245, 243, 255) },
+            { 7100, new Color(243, 242, 255) },
+            { 7200, new Color(240, 241, 255) },
+            { 7300, new Color(239, 240, 255) },
+            { 7400, new Color(237, 239, 255) },
+            { 7500, new Color(235, 238, 255) },
+            { 7600, new Color(233, 237, 255) },
+            { 7700, new Color(231, 236, 255) },
+            { 7800, new Color(230, 235, 255) },
+            { 7900, new Color(228, 234, 255) },
+            { 8000, new Color(227, 233, 255) },
+            { 8100, new Color(225, 232, 255) },
+            { 8200, new Color(224, 231, 255) },
+            { 8300, new Color(222, 230, 255) },
+            { 8400, new Color(221, 230, 255) },
+            { 8500, new Color(220, 229, 255) },
+            { 8600, new Color(218, 229, 255) },
+            { 8700, new Color(217, 227, 255) },
+            { 8800, new Color(216, 227, 255) },
+            { 8900, new Color(215, 226, 255) },
+            { 9000, new Color(214, 225, 255) },
+            { 9100, new Color(212, 225, 255) },
+            { 9200, new Color(211, 224, 255) },
+            { 9300, new Color(210, 223, 255) },
+            { 9400, new Color(209, 223, 255) },
+            { 9500, new Color(208, 222, 255) },
+            { 9600, new Color(207, 221, 255) },
+            { 9700, new Color(207, 221, 255) },
+            { 9800, new Color(206, 220, 255) },
+            { 9900, new Color(205, 220, 255) },
+            { 10000, new Color(207, 218, 255) },
+            { 10100, new Color(207, 218, 255) },
+            { 10200, new Color(206, 217, 255) },
+            { 10300, new Color(205, 217, 255) },
+            { 10400, new Color(204, 216, 255) },
+            { 10500, new Color(204, 216, 255) },
+            { 10600, new Color(203, 215, 255) },
+            { 10700, new Color(202, 215, 255) },
+            { 10800, new Color(202, 214, 255) },
+            { 10900, new Color(201, 214, 255) },
+            { 11000, new Color(200, 213, 255) },
+            { 11100, new Color(200, 213, 255) },
+            { 11200, new Color(199, 212, 255) },
+            { 11300, new Color(198, 212, 255) },
+            { 11400, new Color(198, 212, 255) },
+            { 11500, new Color(197, 211, 255) },
+            { 11600, new Color(197, 211, 255) },
+            { 11700, new Color(197, 210, 255) },
+            { 11800, new Color(196, 210, 255) },
+            { 11900, new Color(195, 210, 255) },
+            { 12000, new Color(195, 209, 255)}
+        };
+        _colorArray = colors.ToArray();
+    }
+
+    internal static Color GetColor(int i) => _colorArray[GetIndex(i)].Value;
+
+    internal static int GetKelvin(int i) => _colorArray[GetIndex(i)].Key;
+
+    private static int GetIndex(int i)
+    {
+        var x = i / 100d * (_colorArray.Length - 1);
+        var index = (int)x;
+        return index;
+    }
+}
